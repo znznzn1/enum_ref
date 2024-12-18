@@ -3,7 +3,7 @@
 #include "log.h"
 #include "enum_ref.h"
 enum Color {
-    RED,GREEN,BLUE,PINK,YELLOW
+    RED = 1,GREEN,BLUE,PINK,YELLOW
 };
 
 int main()
@@ -14,8 +14,8 @@ int main()
      Color red = (Color)2;
     std::string name = get_type_name<Color>();
    
-    std::string enum_name = get_enum_name <char,1>();
+    std::string enumName = enum_name<Color>(red);
     //OUT(name);
-    OUT(enum_name);
+    OUT(enumName);
     return 0;
 }

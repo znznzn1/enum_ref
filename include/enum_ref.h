@@ -48,5 +48,36 @@ std::string get_enum_name() {
 
 }
 
+template<int N>
+class const_value {
+public:
+    static constexpr int value = N;
+};
+
+// æ≤Ã¨for—≠ª∑
+template<int Beg = 0,int End = 256 ,class F>
+void static_for(F const& f) {
+    if constexpr (Beg == End)
+    {
+        return;
+    }else{
+        f(const_value<Beg>());
+        static_for<Beg+1,End>(f);
+    }
+   
+}
+
+template<class T>
+std::string enum_name(T n) {
+   /* if (n == T(1)) return get_enum_name<T, (T)1>();
+    if (n == T(2)) return get_enum_name<T, (T)2>();
+    if (n == T(3)) return get_enum_name<T, (T)3>();
+    if (n == T(4)) return get_enum_name<T, (T)4>();*/
+    std::string ret ;
+    static_for([&](auto ic) {
+        if (n == (T)ic.value)  ret = get_enum_name<T, (T)ic.value>();
+     }) ;
+    return ret;
+}
 
 #endif // !ENUM_REF_H
